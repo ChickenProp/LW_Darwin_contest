@@ -5,7 +5,7 @@ draft of a bot submission
 # How does cloneBot work?
 CloneBot has 2 different behaviours:
 - after round X, it just executes a payload. The payload is your personal code. At this moment, we hope competition outside the clique will have been eliminated, so we can settle it between ourselves.
-- before round X, CloneBot perfectly collaborates with its clones (us clique members), and partially defects against outsiders.
+- before round X, CloneBot perfectly collaborates with its clones (us clique members), and gradually defects against outsiders.
 To do so, CloneBot compares its own code and opponent's code. Doing that, it ignores the payload. This way, it guarantees that until round X, all clique members act as one, and nobody gets an unfair advantage by collaborating with outsiders more than the others clique members.
 
 # How do I use it?
