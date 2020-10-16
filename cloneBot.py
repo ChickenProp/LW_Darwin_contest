@@ -7,7 +7,7 @@ class CloneBot():
         self.random = random
         self.extra = extra
 
-        self.showdownRound = 80     # after this round, your personal program takes over
+        self.showdownRound = 90     # after this round, your personal program takes over
         self.round = round          # the current round
         self.myMoves = []           # all the moves you've made, first to last
         self.opponentMoves = []     # all the moves your opponent has made, first to last
@@ -57,8 +57,8 @@ class CloneBot():
         self.myMoves.append(output)
         return output
 
-    def defaultCooperation(self) :                  # factor influencing behaviour with non-clones, 1 at round 0, 0 at halfway to showdown
-        return float(self.showdownRound - (self.round*2)) / self.showdownRound
+    def defaultCooperation(self) :              # factor influencing behaviour with non-clones, 1 at round 0, 0 at round 60
+        return float(self.showdownRound - (self.round*1.5)) / self.showdownRound
         
     def cooperateWithClone(self) :
         if self.turn == 0 :
@@ -99,5 +99,5 @@ class CloneBot():
     def payload(self) :
         # put a personal word here to guarantee no tie during cooperation: myUniqueWord
         # put what you want to play for the showdown
-        # no line after 'def payload(self)' should have less than 8 whitespaces at the beginning, unless it's an empty or only whitespace line
-        
+        # no line after 'def payload(self)' should have less than 8 whitespaces at the beginning,
+        # unless it's an empty or only whitespace line
