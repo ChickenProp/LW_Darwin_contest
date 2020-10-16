@@ -7,25 +7,32 @@ class CloneBot():
         self.random = random
         self.extra = extra
 
-        random.seed()
-        self.showdownRound = 100    # after this round, your personal program takes over
+        self.showdownRound = 80     # after this round, your personal program takes over
         self.round = round          # the current round
         self.myMoves = []           # all the moves you've made, first to last
         self.opponentMoves = []     # all the moves your opponent has made, first to last
 
         my_source_raw = extra.__getattribute__(''.join(['ge','t_','my','_s','ou','rce']))(self)
         opponent_source_raw = extra.__getattribute__(''.join(['ge','t_','op','po','ne','nt','_s','ou','rce']))(self)
-        my_source = "\n".join([line.rstrip() for line in my_source_raw.splitlines()])
-        opponent_source = "\n".join([line.rstrip() for line in opponent_source_raw.splitlines()])
-        if not 'payload' in opponent_source :
+        my_source = "\n".join(["    ".join(line.split('\t')).rstrip() for line in my_source_raw.splitlines()])
+        opponent_source = "\n".join(["    ".join(line.split('\t')).rstrip() for line in opponent_source_raw.splitlines()])
+
+        if not 'def payload(self) :' in opponent_source :
             self.is_opponent_clone = False
         else :
-            my_common_code, my_payload = my_source.rsplit('payload', 1)
-            opponent_common_code, opponent_payload = opponent_source.rsplit('payload', 1)
+            my_common_code, my_payload = my_source.rsplit('def payload(self) :', 1)
+            opponent_common_code, opponent_payload = opponent_source.rsplit('def payload(self) :', 1)
             if my_common_code != opponent_common_code :
                 self.is_opponent_clone = False
             else :
                 self.is_opponent_clone = True
+                for line in opponent_payload.split("\n") :
+                    # checks that no common method or property is overwritten after the payload
+                    if line.lstrip() != "" and line[0:8] != "        " :
+                        self.is_opponent_clone = False
+                        break
+
+            if self.is_opponent_clone :
                 payload_length_difference = len(my_payload) - len(opponent_payload)
                 if my_payload != opponent_payload :
                     # compares payloads without reading them
@@ -34,7 +41,10 @@ class CloneBot():
                     self.high_first = (my_payload < opponent_payload) == ((payload_length_difference+round) % 2 == 1)
             
     def move(self, previous=None) :
-        self.turn = len(self.myMoves)    # the current turn
+        self.turn = len(self.myMoves)               # the current turn
+        # pseudorandom to allow simulators to collaborate
+        self.random.seed(self.round * self.turn * (6 if previous==None else previous))
+        
         if previous != None :
             self.opponentMoves.append(previous)
         if self.is_opponent_clone :
@@ -47,8 +57,8 @@ class CloneBot():
         self.myMoves.append(output)
         return output
 
-    def defaultCooperation(self) :     # factor influencing behaviour with non-clones, 1 at round 0, 0 at showdown
-        return float(self.showdownRound - self.round) / self.showdownRound
+    def defaultCooperation(self) :                  # factor influencing behaviour with non-clones, 1 at round 0, 0 at halfway to showdown
+        return float(self.showdownRound - (self.round*2)) / self.showdownRound
         
     def cooperateWithClone(self) :
         if self.turn == 0 :
@@ -69,6 +79,9 @@ class CloneBot():
             if self.myMoves[-1] == 2 :
                 return 3                        # tit for tat
             elif self.myMoves[-1] == 3 :
+                if self.turn >= 2 :
+                    if self.myMoves[-2] == 3 and self.opponentMoves[-2] == 2 :
+                        return 3                # stable 3 against 2
                 if self.random.random() < self.defaultCooperation() :
                     return 2                    # cooperation
                 else :
@@ -86,4 +99,5 @@ class CloneBot():
     def payload(self) :
         # put a personal word here to guarantee no tie during cooperation: myUniqueWord
         # put what you want to play for the showdown
-        return 3
+        # no line after 'def payload(self)' should have less than 8 whitespaces at the beginning, unless it's an empty or only whitespace line
+        
