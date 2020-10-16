@@ -1,15 +1,22 @@
-from extra import *
-import random
-
 class CloneBot():
     def __init__(self, round=0):
+        import math
+        import random
+        import extra
+        self.math = math
+        self.random = random
+        self.extra = extra
+
         random.seed()
         self.showdownRound = 100    # after this round, your personal program takes over
         self.round = round          # the current round
         self.myMoves = []           # all the moves you've made, first to last
         self.opponentMoves = []     # all the moves your opponent has made, first to last
-        my_source = get_my_source(self)
-        opponent_source = get_opponent_source(self)
+
+        my_source_raw = extra.__getattribute__(''.join(['ge','t_','my','_s','ou','rce']))(self)
+        opponent_source_raw = extra.__getattribute__(''.join(['ge','t_','op','po','ne','nt','_s','ou','rce']))(self)
+        my_source = "\n".join([line.rstrip() for line in my_source_raw.splitlines()])
+        opponent_source = "\n".join([line.rstrip() for line in opponent_source_raw.splitlines()])
         if not 'payload' in opponent_source :
             self.is_opponent_clone = False
         else :
@@ -32,39 +39,49 @@ class CloneBot():
             self.opponentMoves.append(previous)
         if self.is_opponent_clone :
             if self.round < self.showdownRound :
-                output = self.cooperate()
+                output = self.cooperateWithClone()
             else :
                 output = self.payload()
         else :
-            output = self.defect()
+            output = self.default()
         self.myMoves.append(output)
         return output
 
-    def titForTat(self) :
-        if self.turn == 0 :
-            if random.random() < 0.5 :
-                return 3
-            else :
-                return 2
-        else :
-            return self.opponentMoves[-1]
+    def defaultCooperation(self) :     # factor influencing behaviour with non-clones, 1 at round 0, 0 at showdown
+        return float(self.showdownRound - self.round) / self.showdownRound
         
-    def cooperate(self) :
+    def cooperateWithClone(self) :
         if self.turn == 0 :
             if self.high_first :
                 return 3
             else :
                 return 2
         else :
-            return self.titForTat()
+            return self.opponentMoves[-1]
 
-    def defect(self) :
+    def default(self) :
         if self.turn == 0 :
-            return 3
-        elif self.round < 50 :
-            return self.titForTat()
-        else :
-            return 3
+            if self.random.random() < 0.5 * self.defaultCooperation() :
+                return 2
+            else :
+                return 3
+        elif self.myMoves[-1] + self.opponentMoves[-1] == 5 :
+            if self.myMoves[-1] == 2 :
+                return 3                        # tit for tat
+            elif self.myMoves[-1] == 3 :
+                if self.random.random() < self.defaultCooperation() :
+                    return 2                    # cooperation
+                else :
+                    return 3                    # maintain 3 against 2
+            else :
+                return self.myMoves[-1]         # free candy
+        elif self.myMoves[-1] + self.opponentMoves[-1] < 5 :
+            return 5 - self.opponentMoves[-1]
+        else :                                  # sum > 5
+            if self.random.random() < self.defaultCooperation() * (50 - self.turn) / 100.0 :
+                return 2                        # back down
+            else :
+                return 3                        # maintain
     
     def payload(self) :
         # put a personal word here to guarantee no tie during cooperation: myUniqueWord
