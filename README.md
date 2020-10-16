@@ -35,6 +35,7 @@ In order to prevent escape from common behaviour, **each line in the payload or 
 
 # How to submit?
 Before submitting, double-check that:
++ it's time to submit the code and the common code will not be updated (**it's not time!**)
 + the part of your code before payload is identical to the one here. You can use this tool to check: https://www.diffchecker.com/
 + your payload has all lines with at least 8 leading whitespaces (or empty or only whitespace lines)
 
