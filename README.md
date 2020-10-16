@@ -1,6 +1,8 @@
 # LW_Darwin_contest
 draft of a bot submission
 
+# NOTE: Do not download and submit yet
+This is a work in progress.
 
 # How does cloneBot work?
 CloneBot has 2 different behaviours:
