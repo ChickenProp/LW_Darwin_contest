@@ -13,7 +13,36 @@ To do so, CloneBot compares its own code and opponent's code. Doing that, it ign
 # How do I use it?
 The payload is where you put your own program. Feel free to modify it as you wish.
 Actually, you should personalize your payload with a unique comment, to be 100% sure that you do not tie with clique members during the early rounds of cooperation.
-**Do not modify the rest, as it would exclude you from the clique!**
+**Do not modify what's before the payload, as it would exclude you from the clique!**
+In order to prevent escape from common behaviour, **each line in the payload or after it must either**:
++ be empty
++ be only whitespaces
++ have at least 8 whitespaces at the beginning
+
+# How to import modules, define methods and/or properties:
+    def payload(self) :
+        if self.round == self.showdownRound :
+            # all imports and definitions here
+            import module1
+            self.module1 = module1
+            def method1() :
+                ...
+            self.method1 = method1
+            
+        # each round behaviour
+        self.method1()
+        module1.function1()
+
+# How to submit?
+Before submitting, double-check that:
++ the part of your code before payload is identical to the one here. You can use this tool to check: https://www.diffchecker.com/
++ your payload has all lines with at least 8 leading whitespaces (or empty or only whitespace lines)
+
+The submit form is here:
+https://docs.google.com/forms/d/e/1FAIpQLScEQSwbn2RKFq_ZeJBIRjzsA5015QgS_p5HrJI4qJxDj-5FPA/viewform
+It offers two ways to submit, by copying the code or by linking to a repo.
+Compatibility between the two modes *should* work but has not been tested. I suggest we all submit by copying our code. Your can link to a repo, at your own risks.
+
 Feel free to use the data provided by the common methods:
 - self.showdownRound  the round after which the payload is active
 - self.round          the current round
