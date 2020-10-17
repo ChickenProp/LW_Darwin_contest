@@ -31,7 +31,7 @@ In order to prevent escape from common behaviour, **each line in the payload or 
         module1.function1()
 
 # How to check my bot will be recognized by the other clones:
-The extra.py file, in addition to emulating the contest's extra module for your testing purposes, also has an additional testCloneCompatibility() function. This function simulates the game conditions. If your bot is successfully recognized by the reference bot, you're in the green.
+The extra.py file, in addition to emulating the contest's extra module for your testing purposes, also has an additional testCloneCompatibility() function. This function simulates the game conditions. If your bot is successfully recognized by the reference bot, you're good to go.
 
 # How to submit:
 Before submitting, double-check that:
