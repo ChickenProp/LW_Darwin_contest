@@ -102,3 +102,4 @@ class CloneBot():
         # put what you want to play for the showdown
         # no line after 'def payload(self)' should have less than 8 whitespaces at the beginning,
         # unless it's an empty or only whitespace line
+        return 3

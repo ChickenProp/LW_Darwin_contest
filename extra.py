@@ -3,26 +3,23 @@
 # test your bot's compatibility with testCloneCompatibility()
 
 
+# Replaced these with my own implementation, which is more general than the
+# original.
+bot1_source = ''
+bot2_source = ''
+bot1 = None
 
-def get_my_source(caller) :
-    if caller.__class__.__module__ == "cloneBot" :
-        fileName = "cloneBot.py"
-    else :
-        fileName = "myBot.py"
-    my_file = open(fileName, 'r')
-    my_code = my_file.read()
-    return my_code
+def get_opponent_source(me):
+    if me.__class__ is bot1:
+        return bot2_source
+    else:
+        return bot1_source
 
-
-def get_opponent_source(caller) :
-    if caller.__class__.__module__ == "cloneBot" :
-        fileName = "myBot.py"
-    else :
-        fileName = "cloneBot.py"
-    my_file = open(fileName, 'r')
-    my_code = my_file.read()
-    return my_code
-
+def get_my_source(me):
+    if me.__class__ is bot1:
+        return bot1_source
+    else:
+        return bot2_source
 
 # to check that your bot will be recognized as clique member, do the following:
 # in a folder, download cloneBot.py and extra.py (this file)
