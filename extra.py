@@ -1,3 +1,9 @@
+# this module does 2 things:
+# emulate lsusr's extra module
+# test your bot's compatibility with testCloneCompatibility()
+
+
+
 def get_my_source(caller) :
     if caller.__class__.__module__ == "cloneBot" :
         fileName = "cloneBot.py"
@@ -18,6 +24,11 @@ def get_opponent_source(caller) :
     return my_code
 
 
+# to check that your bot will be recognized as clique member, do the following:
+# in a folder, download cloneBot.py and extra.py (this file)
+# copy your bot in a file called myBot.py in the same folder
+# run this module
+# execute testCloneCompatibility()
 def testCloneCompatibility() :
     import cloneBot
     import myBot
