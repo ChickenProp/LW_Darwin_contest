@@ -1,16 +1,13 @@
 # LW_Darwin_contest
-draft of a bot submission
+Here is all you need to make your own CloneBot that will join the CloneBot clique.
 
-# NOTE: Do not download and submit yet
-This is a work in progress.
-
-# How does cloneBot work?
+# How does cloneBot work:
 CloneBot has 2 different behaviours:
 - after round X, it just executes a payload. The payload is your personal code. At this moment, we hope competition outside the clique will have been eliminated, so we can settle it between ourselves.
 - before round X, CloneBot perfectly collaborates with its clones (us clique members), and gradually defects against outsiders.
 To do so, CloneBot compares its own code and opponent's code. Doing that, it ignores the payload. This way, it guarantees that until round X, all clique members act as one, and nobody gets an unfair advantage by collaborating with outsiders more than the others clique members.
 
-# How do I use it?
+# How to use it:
 The payload is where you put your own program. Feel free to modify it as you wish.
 Actually, you should personalize your payload with a unique comment, to be 100% sure that you do not tie with clique members during the early rounds of cooperation.
 **Do not modify what's before the payload, as it would exclude you from the clique!**
@@ -33,11 +30,16 @@ In order to prevent escape from common behaviour, **each line in the payload or 
         self.method1()
         module1.function1()
 
-# How to submit?
+# How to check my bot will be recognized by the other clones:
+The extra.py file, in addition to emulating the contest's extra module for your testing purposes, also has an additional testCloneCompatibility() function. This function simulates the game conditions. If your bot is successfully recognized by the reference bot, you're in the green.
+
+# How to submit:
 Before submitting, double-check that:
-+ it's time to submit the code and the common code will not be updated (**it's not time!**)
-+ the part of your code before payload is identical to the one here. You can use this tool to check: https://www.diffchecker.com/
++ it's time to submit the code and the common code will not be updated (it's time)
++ the part of your code before payload is identical to the one here.
+    You can use this tool to check: https://www.diffchecker.com/
 + your payload has all lines with at least 8 leading whitespaces (or empty or only whitespace lines)
+    The extra.py module has the function testCloneCompatibility() to run a check of both the part before payload and the part after.
 
 The submit form is here:
 https://docs.google.com/forms/d/e/1FAIpQLScEQSwbn2RKFq_ZeJBIRjzsA5015QgS_p5HrJI4qJxDj-5FPA/viewform
