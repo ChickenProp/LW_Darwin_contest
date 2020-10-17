@@ -11,7 +11,6 @@ class CloneBot():
         self.round = round          # the current round
         self.myMoves = []           # all the moves you've made, first to last
         self.opponentMoves = []     # all the moves your opponent has made, first to last
-        foo = 'bar'                 # line for benchmark tests
 
         my_source_raw = extra.__getattribute__(''.join(['ge','t_','my','_s','ou','rce']))(self)
         opponent_source_raw = extra.__getattribute__(''.join(['ge','t_','op','po','ne','nt','_s','ou','rce']))(self)
