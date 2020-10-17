@@ -21,7 +21,7 @@ In order to prevent escape from common behaviour, **each line in the payload or 
 
 # How to import modules, define methods and/or properties:
     def payload(self) :
-        if self.round == self.showdownRound :
+        if self.turn == 0 :
             # all imports and definitions here
             import module1
             self.module1 = module1
@@ -29,7 +29,7 @@ In order to prevent escape from common behaviour, **each line in the payload or 
                 ...
             self.method1 = method1
             
-        # each round behaviour
+        # each turn behaviour
         self.method1()
         module1.function1()
 
