@@ -1,3 +1,5 @@
+See https://lesswrong.com/posts/AHTRyQJtiRin22kth/the-darwin-game-1
+
 # LW_Darwin_contest
 Here is all you need to make your own CloneBot that will join the CloneBot clique.
 
