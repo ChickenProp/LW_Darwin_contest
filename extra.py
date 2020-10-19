@@ -26,11 +26,9 @@ def get_my_source(me):
 # copy your bot in a file called myBot.py in the same folder
 # run this module
 # execute testCloneCompatibility()
-def testCloneCompatibility() :
-    import cloneBot
-    import myBot
-    referenceBot = cloneBot.CloneBot()
-    myBot = myBot.CloneBot()
+def testCloneCompatibility(reference, mine) :
+    referenceBot = reference()
+    myBot = mine()
     if referenceBot.is_opponent_clone :
         print("Reference bot successfully recognized your bot as a clone!\nYou're good to go.")
     else :
