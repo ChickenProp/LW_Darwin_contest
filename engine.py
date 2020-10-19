@@ -7,6 +7,7 @@ import jailer
 import jailbreaker
 import simple
 import payload
+import taleuntum
 
 import extra
 
@@ -26,6 +27,7 @@ bots = \
     , 'tft': (simple.SimpleTFTBot, 'simple.py')
     , 'random': (simple.RandomBot, 'simple.py')
     , 'ast-fallback': (simple.ASTFallbackBot, 'simple.py')
+    , 'taleuntum': (taleuntum.CloneBot, 'taleuntum.py')
     }
 
 def setup_extra(bot1, bot1_source, bot2_source):
